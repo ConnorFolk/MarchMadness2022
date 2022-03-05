@@ -48,6 +48,7 @@ In order to create this model, I had to turn the parameters to the dataset. I us
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 source("Datacode.R", local = knitr::knit_global())
 ```
+
 ```{r, include=FALSE}
 source("XGBOOST.R", local = knitr::knit_global())
 ```
@@ -55,8 +56,24 @@ source("XGBOOST.R", local = knitr::knit_global())
 ```{r}
 library(ROCR)
 library(InformationValue)
+library(kableExtra)
+
 plotROC(factor(test$Result), ML_trainphatsxgb)
-confusionMatrix(factor(test$Result), ML_trainphatsxgb, threshold = .5)
+
+t=confusionMatrix(factor(test$Result), ML_trainphatsxgb, threshold = .5)
+coftable=function(confmat){
+options(knitr.kable.NA = '')
+XGboostCM=as.data.frame(confmat)
+XGboostCM[3,]= c(NA, paste0(round((XGboostCM[1,1] + XGboostCM[2,2])/ sum(XGboostCM) * 100,2), '%'))
+colnames(XGboostCM)= c("Predicted Team 2 Won", "Predicted Team 1 Won")
+row.names(XGboostCM)=c("Actual Team 2 Won", "Actual Team 1 Won", "Classification Rate")
+
+return(kable(XGboostCM)%>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)%>%
+  row_spec(3, bold = T, italic = T)%>%
+  column_spec(1, bold = 1))}
+
+coftable(t)
 ```
 The model also calculates the importance of each variable in predicting which team wins. The variables are clustered based on importance to the model, with cluster 1 in red and cluster 2 in light blue. The two most important variables were the Pomeroy rankings for the two teams. The plot of Variable Importance is shown below. 
 
@@ -83,7 +100,9 @@ source("RandomForest.R", local = knitr::knit_global())
 
 ```{r}
 plotROC(factor(test$Result), rfphat)
-confusionMatrix(factor(test$Result), rfphat, threshold = .5)
+
+coftable(confusionMatrix(factor(test$Result), rfphat, threshold = .5))
+
 ```
 
 The random forest model also displays the most important variables in determining the winning team. A table of the most important variables to the model based on change in accuracy and impurity are shown below. This table also shows the Pomeroy rankings for both teams are the most influential in determining the winner.
@@ -99,6 +118,37 @@ varImpPlot(rf.ames2,
 
 The random forest model had similar performance on the 2019 NCAA tournament compared to the training. The model predicted 73% of the games correctly during this tournament with an AROC of .7963. The model performed worse on the 2021 tournament with a classification rate of 65% and an AROC of .714. The table below shows the model performance on the two tournaments -----
 
+
+## Neural Network
+
+```{r, include=FALSE}
+source("NeuralNetwork.R", local = knitr::knit_global())
+```
+
+### Methodology and Analysis
+
+In order to model the training set with a neural network, I standardized the data using z-score transformations. This process allows the predictor variables to be on the same scale so that continuous variables with large values or standard deviations do not dominate the model. The neural network also needed to be optimized for the number of hidden layers and decay (a regularization parameter to prevent overfitting).The final neural net model had an AROC of .845 and a classification rate of --- on the training dataset.
+
+```{r}
+library(ROCR)
+library(InformationValue)
+plotROC(factor(NN$Result),bestneural$fitted.values)
+coftable(confusionMatrix(factor(NN$Result), bestneural$fitted.values))
+```
+
+### Results
+
+The Neural Network model performed relatively averagely on 2019 tournament, but better than either of the two other models on the 2021 tournament. The model predicted only 70% of the games correctly in 2019 with a AROC of .7848. However, the model predicted 68% of the 2021 tournament games correctly with an AROC of .7241.
+
+```{r}
+#table here
+```
+
+## Ensemble Models
+
+Looking at all of the machine learning models, each had strengths and weaknesses in predicting certain aspect of game scenarios. Combining the insights from these models may lead to even better predictions. 
+
+### Random Forest and Neural Network
 
 
 
