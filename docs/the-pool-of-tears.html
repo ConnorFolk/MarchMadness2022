@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The pool of tears | YOUR TITLE HERE</title>
-  <meta name="description" content="Chapter 2 The pool of tears | YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <title>Chapter 5 The pool of tears | March Madness Machine Learning 2022</title>
+  <meta name="description" content="Chapter 5 The pool of tears | March Madness Machine Learning 2022" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The pool of tears | YOUR TITLE HERE" />
+  <meta property="og:title" content="Chapter 5 The pool of tears | March Madness Machine Learning 2022" />
   <meta property="og:type" content="book" />
   
   
@@ -16,24 +16,26 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The pool of tears | YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Chapter 5 The pool of tears | March Madness Machine Learning 2022" />
   
   
   
 
-<meta name="author" content="YOUR NAME HERE" />
+<meta name="author" content="Connor Folk" />
 
 
-<meta name="date" content="2020-08-10" />
+<meta name="date" content="2022-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+<link rel="prev" href="models.html"/>
 <link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,6 +51,9 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
@@ -66,12 +71,27 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">March Madness 2022</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Down the rabbit-hole</a></li>
-<li class="chapter" data-level="2" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>2</b> The pool of tears</a></li>
-<li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="2" data-path="dataset.html"><a href="dataset.html"><i class="fa fa-check"></i><b>2</b> Dataset<span></span></a></li>
+<li class="chapter" data-level="3" data-path="variable-selection.html"><a href="variable-selection.html"><i class="fa fa-check"></i><b>3</b> Variable Selection<span></span></a></li>
+<li class="chapter" data-level="4" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>4</b> Models<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="models.html"><a href="models.html#xgboost"><i class="fa fa-check"></i><b>4.1</b> XGBoost<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="models.html"><a href="models.html#methodology-and-analysis"><i class="fa fa-check"></i><b>4.1.1</b> Methodology and Analysis<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="models.html"><a href="models.html#results"><i class="fa fa-check"></i><b>4.1.2</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="models.html"><a href="models.html#random-forest-model"><i class="fa fa-check"></i><b>4.2</b> Random Forest Model<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="models.html"><a href="models.html#methodology-and-analysis-1"><i class="fa fa-check"></i><b>4.2.1</b> Methodology and Analysis<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="models.html"><a href="models.html#results-1"><i class="fa fa-check"></i><b>4.2.2</b> Results<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>5</b> The pool of tears<span></span></a></li>
+<li class="chapter" data-level="6" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>6</b> A caucus-race and a long tale<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -83,7 +103,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">March Madness Machine Learning 2022</a>
           </h1>
         </div>
 
@@ -91,8 +111,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-pool-of-tears" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> The pool of tears</h1>
+<div id="the-pool-of-tears" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> The pool of tears<a href="the-pool-of-tears.html#the-pool-of-tears" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
 </div>
             </section>
@@ -100,12 +120,11 @@
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -124,6 +143,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -132,7 +152,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/master/02-tears.Rmd",
+"link": "https://github.com/ConnorFolk/MarchMadness2022/edit/master/02-tears.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -140,10 +160,14 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/master/02-tears.Rmd",
+"link": "https://github.com/ConnorFolk/MarchMadness2022/blob/master/02-tears.Rmd",
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
