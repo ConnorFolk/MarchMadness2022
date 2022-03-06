@@ -12,9 +12,15 @@ rfphat=as.double(predict(rf.ames2, type= "prob")[,2])
 
 
 
-testy= FullData%>%
+testyrfdata2019= FullData%>%
   filter(Season==2019)
-testyrf= as.double(predict(rf.ames2, newdata = testy, type= "prob")[,2])
+testyrf2019= as.double(predict(rf.ames2, newdata = testyrfdata2019, type= "prob")[,2])
+
+
+
+testyrfdata2021= FullData%>%
+  filter(Season==2021)
+testyrf2021= as.double(predict(rf.ames2, newdata = testyrfdata2021, type= "prob")[,2])
 #plotROC(factor(testy$Result), testyrf)
 
 

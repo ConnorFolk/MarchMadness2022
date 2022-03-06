@@ -24,7 +24,7 @@
 <meta name="author" content="Connor Folk" />
 
 
-<meta name="date" content="2022-03-05" />
+<meta name="date" content="2022-03-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -99,10 +99,10 @@
 <li class="chapter" data-level="4.4" data-path="models.html"><a href="models.html#ensemble-models"><i class="fa fa-check"></i><b>4.4</b> Ensemble Models<span></span></a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="models.html"><a href="models.html#random-forest-and-neural-network"><i class="fa fa-check"></i><b>4.4.1</b> Random Forest and Neural Network<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="models.html"><a href="models.html#random-forest-neural-network-and-xgboost"><i class="fa fa-check"></i><b>4.4.2</b> Random Forest, Neural Network, and XGBoost<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>5</b> The pool of tears<span></span></a></li>
-<li class="chapter" data-level="6" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>6</b> A caucus-race and a long tale<span></span></a></li>
+<li class="chapter" data-level="5" data-path="assessing-model-performance.html"><a href="assessing-model-performance.html"><i class="fa fa-check"></i><b>5</b> Assessing Model Performance<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -126,14 +126,14 @@
 <h1><span class="header-section-number">Chapter 3</span> Variable Selection<a href="variable-selection.html#variable-selection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The dataset contained 112 different variables or metrics for each team. Using all of these variables provided the modeling techniques too much noise. Many of the modeling techniques predicted the training data very well with all of the variables, but performed poorly on the test and validation. Using a combination of variable importance plots, modeling assesment metrics, and knowledge of college basketball, I choose the following variables:</p>
 <ul>
-<li>Points per Possession (Offensive Efficiency)- Average number of points a team scores per possession</li>
-<li>Opponents Points per Possession (Defensive Efficiency)- Average number of points allowed per possession</li>
-<li>Point Differential- Margin of victory, number of points scored minus number of points allowed</li>
-<li>Pomeroy Ranking- Ranking of teams by legendary college basketball statistician Ken Pom (lower the ranking, the better)</li>
-<li>Opponent Three Point Field Goal Percentage- Number of three points allowed divided by number of three points attempted</li>
-<li>Free Throw Percentage- Number of free throws made/ number of free throws attempted</li>
-<li>Offensive Rebound Difference- Difference between a team’s number of offensive rebound and their opponent’s number of offensive rebounds</li>
-<li>Opponent Turnovers- Number of turnovers by a team’s opponent</li>
+<li><strong>Points per Possession (Offensive Efficiency)</strong>- Average number of points a team scores per possession</li>
+<li><strong>Opponents Points per Possession (Defensive Efficiency)</strong>- Average number of points allowed per possession</li>
+<li><strong>Point Differential</strong>- Margin of victory, number of points scored minus number of points allowed</li>
+<li><strong>Pomeroy Ranking</strong>- Ranking of teams by legendary college basketball statistician Ken Pom (lower the ranking, the better)</li>
+<li><strong>Opponent Three Point Field Goal Percentage</strong>- Number of three points allowed divided by number of three points attempted</li>
+<li><strong>Free Throw Percentage</strong>- Number of free throws made/ number of free throws attempted</li>
+<li><strong>Offensive Rebound Difference</strong>- Difference between a team’s number of offensive rebound and their opponent’s number of offensive rebounds</li>
+<li><strong>Opponent Turnovers</strong>- Number of turnovers by a team’s opponent</li>
 </ul>
 <p>These variables account for a team’s defensive, offensive, rebounding, and overall abilities.</p>
 </div>

@@ -19,4 +19,20 @@ xgbbest= xgboost(data = train_x, label = train_y, subsample = .45, nrounds = 7, 
 
 
 ML_trainphatsxgb=predict(xgbbest, train_x, type="response")
-typeof(ML_trainphatsxgb)
+#typeof(ML_trainphatsxgb)
+
+testyXGB2019= FullData%>%
+  filter(Season==2019)#%>%
+#select(-Team1_FTP, -Team2_FTP, -Team1_OPP_FTP, -Team2_OPP_FTP)
+
+traintestyXGB2019= model.matrix(Result ~ ., data = testyXGB2019%>% select(Team1_PPP, Team1_OPP_PPP,Team2_PPP, Team2_OPP_PPP, Team1_POINTDIFF, Team2_POINTDIFF, Result,Team1_FINALPOM, Team2_FINALPOM, Team1_OPP_FGP3, Team2_OPP_FGP3, Team1_FTP, Team2_FTP, Team1_OR_DIFF, Team2_OR_DIFF, Team1_OPP_TO, Team2_OPP_TO))[,-1]
+
+xgbtesty2019=predict(xgbbest, newdata =  traintestyXGB2019, type="response")
+
+testyXGB2021= FullData%>%
+  filter(Season==2021)#%>%
+#select(-Team1_FTP, -Team2_FTP, -Team1_OPP_FTP, -Team2_OPP_FTP)
+
+traintestyXGB2021= model.matrix(Result ~ ., data = testyXGB2021%>% select(Team1_PPP, Team1_OPP_PPP,Team2_PPP, Team2_OPP_PPP, Team1_POINTDIFF, Team2_POINTDIFF, Result,Team1_FINALPOM, Team2_FINALPOM, Team1_OPP_FGP3, Team2_OPP_FGP3, Team1_FTP, Team2_FTP, Team1_OR_DIFF, Team2_OR_DIFF, Team1_OPP_TO, Team2_OPP_TO))[,-1]
+
+xgbtesty2021=predict(xgbbest, newdata =  traintestyXGB2021, type="response")

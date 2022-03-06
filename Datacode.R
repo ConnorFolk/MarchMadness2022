@@ -146,3 +146,9 @@ test=FullData#%>%
 #select(-Team1_FTP, -Team2_FTP, -Team1_OPP_FTP, -Team2_OPP_FTP)
 
 test[rowSums(is.na(test)) > 0,]
+
+
+classrate=function(confmat){
+  XGboostCM=as.data.frame(confmat)
+  
+  return(paste0(round((XGboostCM[1,1] + XGboostCM[2,2])/ sum(XGboostCM) * 100,2), '%'))}

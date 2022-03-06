@@ -24,7 +24,7 @@
 <meta name="author" content="Connor Folk" />
 
 
-<meta name="date" content="2022-03-05" />
+<meta name="date" content="2022-03-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="variable-selection.html"/>
-<link rel="next" href="the-pool-of-tears.html"/>
+<link rel="next" href="assessing-model-performance.html"/>
 <script src="libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -99,10 +99,10 @@
 <li class="chapter" data-level="4.4" data-path="models.html"><a href="models.html#ensemble-models"><i class="fa fa-check"></i><b>4.4</b> Ensemble Models<span></span></a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="models.html"><a href="models.html#random-forest-and-neural-network"><i class="fa fa-check"></i><b>4.4.1</b> Random Forest and Neural Network<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="models.html"><a href="models.html#random-forest-neural-network-and-xgboost"><i class="fa fa-check"></i><b>4.4.2</b> Random Forest, Neural Network, and XGBoost<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>5</b> The pool of tears<span></span></a></li>
-<li class="chapter" data-level="6" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>6</b> A caucus-race and a long tale<span></span></a></li>
+<li class="chapter" data-level="5" data-path="assessing-model-performance.html"><a href="assessing-model-performance.html"><i class="fa fa-check"></i><b>5</b> Assessing Model Performance<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -129,25 +129,28 @@
 <h2><span class="header-section-number">4.1</span> XGBoost<a href="models.html#xgboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="methodology-and-analysis" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Methodology and Analysis<a href="models.html#methodology-and-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In order to create this model, I had to turn the parameters to the dataset. I used 30-fold cross validation to pick the parameters that resulted in the lowest amount of error and prevented overfitting. However, this model still overfit the training data. The ROC curve and Confusion Matrix for this model on the training data is shown below. The model does extradinarily well with a AROC of .94 and misclassification rate of —-.</p>
-<img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<p>In order to create this model, I had to turn the parameters to the dataset. I used 30-fold cross validation to pick the parameters that resulted in the lowest amount of error and prevented overfitting. However, this model still overfit the training data. The ROC curve and Confusion Matrix for this model on the training data is shown below. The model does extradinarily well with a AROC of .94 and misclassification rate of 88.32%.</p>
+<img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 4.1: </span>XGBoost Confusion Matrix on Training Data
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:left;">
-Predicted Team 2 Won
+Actual Team 2 Won
 </th>
 <th style="text-align:left;">
-Predicted Team 1 Won
+Actual Team 1 Won
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 2 Won
+Predicted Team 2 Won
 </td>
 <td style="text-align:left;">
 322
@@ -158,7 +161,7 @@ Actual Team 2 Won
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 1 Won
+Predicted Team 1 Won
 </td>
 <td style="text-align:left;">
 42
@@ -180,37 +183,80 @@ Classification Rate
 </tbody>
 </table>
 <p>The model also calculates the importance of each variable in predicting which team wins. The variables are clustered based on importance to the model, with cluster 1 in red and cluster 2 in light blue. The two most important variables were the Pomeroy rankings for the two teams. The plot of Variable Importance is shown below.</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="results" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Results<a href="models.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Even though the model performed extremely well on the training set, it does not perform as well on the validation dataset (2019 and 2021 seasons) compared to the training dataset furthering the evidence that the model is overfitted However, the model performs very well on the 2019 NCAA tournament compared to other models I created, predicting about 76% of the games correctly. However, the model performs extremely poorly on the 2021 NCAA tournament, predicting only 63% of games correctly.</p>
-<p>____ Insert Comparisons Here</p>
+<p>Even though the model performed extremely well on the training set, it does not perform as well on the validation dataset (2019 and 2021 seasons) compared to the training dataset furthering the evidence that the model is overfitted However, the model performs very well on the 2019 NCAA tournament compared to other models I created, predicting about 76% of the games correctly. However, the model performs extremely poorly on the 2021 NCAA tournament, predicting only 63% of games correctly. The table below contains accuracy measures for the XGBoost model for the 2019 and 2021 tournaments.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-6">Table 4.2: </span>XGBoost Measures on Validation Data
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Classification Rate
+</th>
+<th style="text-align:left;">
+AROC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019 Tournament
+</td>
+<td style="text-align:left;">
+76.12%
+</td>
+<td style="text-align:left;">
+80.17%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021 Tournament
+</td>
+<td style="text-align:left;">
+63.64%
+</td>
+<td style="text-align:left;">
+66.67%
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="random-forest-model" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Random Forest Model<a href="models.html#random-forest-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="methodology-and-analysis-1" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Methodology and Analysis<a href="models.html#methodology-and-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Random Forest model was tuned similarly to the xgboost model using cross-validation. This model performed worse than the xgboost model on the training set, but more in line with model scores on the validation datasets. The AROC for the random forest .75 and the misclassification rate was —-. The area under the ROC curve and Confusion matrix are shown below.</p>
-<img src="bookdownproj_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<p>The Random Forest model was tuned similarly to the xgboost model using cross-validation. This model performed worse than the xgboost model on the training set, but more in line with model scores on the validation datasets. The AROC for the random forest .75 and the misclassification rate was 68.82%. The area under the ROC curve and Confusion matrix are shown below.</p>
+<img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-8">Table 4.3: </span>Random Forest Confusion Matrix on Training Data
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:left;">
-Predicted Team 2 Won
+Actual Team 2 Won
 </th>
 <th style="text-align:left;">
-Predicted Team 1 Won
+Actual Team 1 Won
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 2 Won
+Predicted Team 2 Won
 </td>
 <td style="text-align:left;">
 246
@@ -221,7 +267,7 @@ Actual Team 2 Won
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 1 Won
+Predicted Team 1 Won
 </td>
 <td style="text-align:left;">
 118
@@ -243,36 +289,80 @@ Classification Rate
 </tbody>
 </table>
 <p>The random forest model also displays the most important variables in determining the winning team. A table of the most important variables to the model based on change in accuracy and impurity are shown below. This table also shows the Pomeroy rankings for both teams are the most influential in determining the winner.</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="results-1" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Results<a href="models.html#results-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The random forest model had similar performance on the 2019 NCAA tournament compared to the training. The model predicted 73% of the games correctly during this tournament with an AROC of .7963. The model performed worse on the 2021 tournament with a classification rate of 65% and an AROC of .714. The table below shows the model performance on the two tournaments —–</p>
+<p>The random forest model had similar performance on the 2019 NCAA tournament compared to the training. The model predicted 73% of the games correctly during this tournament with an AROC of .7963. The model performed worse on the 2021 tournament with a classification rate of 63% and an AROC of .714. The table below shows the model performance on the two tournaments is shown in the table below</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-10">Table 4.4: </span>Random Forest Measures on Validation Data
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Classification Rate
+</th>
+<th style="text-align:left;">
+AROC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019 Tournament
+</td>
+<td style="text-align:left;">
+73.13%
+</td>
+<td style="text-align:left;">
+79.63%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021 Tournament
+</td>
+<td style="text-align:left;">
+63.64%
+</td>
+<td style="text-align:left;">
+71.40%
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="neural-network" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Neural Network<a href="models.html#neural-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="methodology-and-analysis-2" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Methodology and Analysis<a href="models.html#methodology-and-analysis-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In order to model the training set with a neural network, I standardized the data using z-score transformations. This process allows the predictor variables to be on the same scale so that continuous variables with large values or standard deviations do not dominate the model. The neural network also needed to be optimized for the number of hidden layers and decay (a regularization parameter to prevent overfitting).The final neural net model had an AROC of .845 and a classification rate of — on the training dataset.</p>
-<img src="bookdownproj_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<p>In order to model the training set with a neural network, I standardized the data using z-score transformations. This process allows the predictor variables to be on the same scale so that continuous variables with large values or standard deviations do not dominate the model. The neural network also needed to be optimized for the number of hidden layers and decay (a regularization parameter to prevent overfitting).The final neural net model had an AROC of .845 and a classification rate of 74.86% on the training dataset.</p>
+<img src="bookdownproj_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-11">Table 4.5: </span>Neural Network Confusion Matrix on Training Data
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
 </th>
 <th style="text-align:left;">
-Predicted Team 2 Won
+Actual Team 2 Won
 </th>
 <th style="text-align:left;">
-Predicted Team 1 Won
+Actual Team 1 Won
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 2 Won
+Predicted Team 2 Won
 </td>
 <td style="text-align:left;">
 270
@@ -283,7 +373,7 @@ Actual Team 2 Won
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-Actual Team 1 Won
+Predicted Team 1 Won
 </td>
 <td style="text-align:left;">
 94
@@ -307,7 +397,48 @@ Classification Rate
 </div>
 <div id="results-2" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Results<a href="models.html#results-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Neural Network model performed relatively averagely on 2019 tournament, but better than either of the two other models on the 2021 tournament. The model predicted only 70% of the games correctly in 2019 with a AROC of .7848. However, the model predicted 68% of the 2021 tournament games correctly with an AROC of .7241.</p>
+<p>The Neural Network model performed relatively averagely on 2019 tournament, but better than either of the two other models on the 2021 tournament. The model predicted only 70% of the games correctly in 2019 with a AROC of .7848. However, the model predicted 68% of the 2021 tournament games correctly with an AROC of .7241. A table with the accuracy measures for the Neural Network model are shown below.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-12">Table 4.6: </span>Neural Network Measures on Validation Data
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Classification Rate
+</th>
+<th style="text-align:left;">
+AROC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019 Tournament
+</td>
+<td style="text-align:left;">
+70.15%
+</td>
+<td style="text-align:left;">
+78.48%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021 Tournament
+</td>
+<td style="text-align:left;">
+68.18%
+</td>
+<td style="text-align:left;">
+72.41%
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="ensemble-models" class="section level2 hasAnchor" number="4.4">
@@ -315,7 +446,319 @@ Classification Rate
 <p>Looking at all of the machine learning models, each had strengths and weaknesses in predicting certain aspect of game scenarios. Combining the insights from these models may lead to even better predictions.</p>
 <div id="random-forest-and-neural-network" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Random Forest and Neural Network<a href="models.html#random-forest-and-neural-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-
+<p>Below are the Confusion Matrices for Neural Network and Random Forest models on the 2019 NCAA tournament. Both models performed relatively well on this tournament with the NN classifying 70.15% of games correctly and the Random Forest classifying 73.13% of games correctly. However, the models seem to perform better in different classifying sections. The Neural Network was extremely good at predicting whether Team 1 Won, correctly classifying 85% of predicted Team 1 Wins. However, the model was worse at predicting Team 2 wins, only correctly classifying 64% of predicted Team 2 wins. Then Random Forest model was more balanced correctly classifying 74% of predicted Team 2 wins and 72% of predicted Team 1 wins. Combining the predictions from these two models may actually improve performance on new data.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-13">Table 4.7: </span>Neural Network Confusion Matrix on 2019 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:left;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+70.15%
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-13">Table 4.7: </span>Random Forest Confusion Matrix on 2019 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+73.13%
+</td>
+</tr>
+</tbody>
+</table>
+<p>When combining the predictions from both Models, model performance on the 2019 tournament is consistent, but is actually better on the 2021 tournament. The RF/NN Ensemble confusion matrices for the 2019 and 2021 tournaments are shown below. This model actually predicts almost 70% of games correctly in the 2021 tournament compared to ___ by the Neural Network model alone and __ by the Random Forest model alone.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-14">Table 4.8: </span>Random Forest and Neural Net Ensemble Confusion Matrix on 2019 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:left;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+73.13%
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-14">Table 4.8: </span>Random Forest and Neural Net Ensemble Confusion Matrix on 2021 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+69.7%
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="random-forest-neural-network-and-xgboost" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Random Forest, Neural Network, and XGBoost<a href="models.html#random-forest-neural-network-and-xgboost" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Adding the predictions from the XGBoost model may increase performance even further. The XGBoost overfits the training data and, therefore, does not perform consistently on the validation sets. However, combining these predictions to the NN/RF Ensemble model may make the predictions more generalization, while extracting as much signal from the data as possible.</p>
+<p>The confusion matrices for the NN/RF/XG Ensemble model for the 2019 and 2021 NCAA tournaments are shown below. This model performs the best on both the 2019 and 2021 datasets, even breaking the into 70% accuracy range for the 2021 tournament.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-15">Table 4.9: </span>Random Forest, Neural Net, and XGBoost Ensemble Confusion Matrix on 2019 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:left;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+76.12%
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-15">Table 4.9: </span>Random Forest, Neural Net, and XGBoost Ensemble Confusion Matrix on 2021 NCAA Tournament
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Actual Team 2 Won
+</th>
+<th style="text-align:left;">
+Actual Team 1 Won
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 2 Won
+</td>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Predicted Team 1 Won
+</td>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;font-style: italic;font-weight: bold;">
+Classification Rate
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+</td>
+<td style="text-align:left;font-weight: bold;font-style: italic;">
+71.21%
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -325,7 +768,7 @@ Classification Rate
         </div>
       </div>
 <a href="variable-selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-pool-of-tears.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assessing-model-performance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>March Madness Machine Learning 2022</title>
-  <meta name="description" content="March Madness Machine Learning 2022" />
+  <title>Chapter 5 Assessing Model Performance | March Madness Machine Learning 2022</title>
+  <meta name="description" content="Chapter 5 Assessing Model Performance | March Madness Machine Learning 2022" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="March Madness Machine Learning 2022" />
+  <meta property="og:title" content="Chapter 5 Assessing Model Performance | March Madness Machine Learning 2022" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="March Madness Machine Learning 2022" />
+  <meta name="twitter:title" content="Chapter 5 Assessing Model Performance | March Madness Machine Learning 2022" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="models.html"/>
 
-<link rel="next" href="dataset.html"/>
 <script src="libs/header-attrs-2.12/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -122,22 +122,70 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">March Madness Machine Learning 2022</h1>
-<p class="author"><em>Connor Folk</em></p>
-<p class="date"><em>2022-03-06</em></p>
-</div>
-<div id="overview" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>March is here and everyone is talking about the NCAA tournament. Being a UNC fan, the talk this year is whether or not we are going (or should) to make the tournament. After watching ESPN talk about the seeding and teams, I wondered if I could use my data science knowledge to predict the outcome of these games. I am not talking about a perfect bracket, but one that used team stats to predict games. Could this model beat other people’s brackets and maybe win me a bit of money. As I initially searched the internet for NCAA basketball data, I stumbled upon a Kaggle competition that happens each year. This competition contained all the data I needed (and much more) to train some machine learning models. If you want to check out the site of this competition, it is listed here: <a href="https://www.kaggle.com/c/mens-march-mania-2022/" class="uri">https://www.kaggle.com/c/mens-march-mania-2022/</a></p>
+<div id="assessing-model-performance" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Assessing Model Performance<a href="assessing-model-performance.html#assessing-model-performance" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The classification rates of the models are hard to interpret alone. For example, is predicting 76% of the 2021 tournament games impressive or just better than the other models? In order to assess model performance, I decided to use the selection committees ranking as a baseline. Comparing the models accuracy to the accuracy of just picking the higher seeded team (known as a “Chalk Bracket”).</p>
+<p>The classification rates for the “Chalk” method and NN/RF/XG Ensemble method are shown in the table below. Just picking the higher seed was actually pretty effective for the 2019 tournament, resulting in an accuracy of 72%. However, the ensemble model still performed 6% better than the “Chalk” method in 2019. The “Chalk” method was much less accurate in picking the 2021 tournament games, coinciding with only a 61% classification rate. The ensemble model far outperformed the “Chalk” method during the 2021 tournament with a 17% higher accuracy score.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-17">Table 5.1: </span>NN/RF/XG Assessment
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Chalk Accuracy
+</th>
+<th style="text-align:left;">
+Model Accuracy
+</th>
+<th style="text-align:left;">
+Percent Difference
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019 Tournament
+</td>
+<td style="text-align:left;">
+71.64%
+</td>
+<td style="text-align:left;">
+76.12%
+</td>
+<td style="text-align:left;">
+6.06%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021 Tournament
+</td>
+<td style="text-align:left;">
+60.61%
+</td>
+<td style="text-align:left;">
+71.21%
+</td>
+<td style="text-align:left;">
+16.85%
+</td>
+</tr>
+</tbody>
+</table>
+<p>In two very different tournament scenarios, the ensemble model performed better than picking higher seeds with an accuracy above 70%. Combining all three predictions increased the generalizability of the model while perserving accurate predictions.</p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="dataset.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
