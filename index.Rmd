@@ -194,7 +194,7 @@ coftable(InformationValue::confusionMatrix(factor(testyrfdata2019$Result), testy
 
 ```
 
-When combining the predictions from both Models, model performance on the 2019 tournament is consistent, but is actually better on the 2021 tournament. The RF/NN Ensemble confusion matrices for the 2019 and 2021 tournaments are shown below. This model actually predicts almost 70% of games correctly in the 2021 tournament compared to ___ by the Neural Network model alone and __ by the Random Forest model alone. 
+When combining the predictions from both Models, model performance on the 2019 tournament is consistent, but is actually better on the 2021 tournament. The RF/NN Ensemble confusion matrices for the 2019 and 2021 tournaments are shown below. This model actually predicts almost 70% of games correctly in the 2021 tournament compared to 68%	 by the Neural Network model alone and 64% by the Random Forest model alone. 
 
 ```{r}
 
