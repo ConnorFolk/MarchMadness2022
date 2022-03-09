@@ -7,42 +7,42 @@ site: bookdown::bookdown_site
 
 # Overview
 
-March is here and everyone is talking about the NCAA tournament. Being a UNC fan, the talk this year is whether or not we are going to make the tournament. After watching ESPN talk about the seeding and teams, I wondered if I could use my data science knowledge to predict the outcome of these games. I am not talking about a perfect bracket, but one that used team stats to predict games. Could this model beat other people's brackets and maybe win me a bit of money. As I initially searched the internet for NCAA basketball data, I stumbled upon a Kaggle competition that happens each year. This competition contained all the data I needed (and much more) to train some machine learning models. If you want to check out the site of this competition, it is listed here: https://www.kaggle.com/c/mens-march-mania-2022/
+March is here, and everyone is talking about the NCAA tournament. Being a UNC fan, the talk this year is whether or not we will make the tournament. After watching ESPN talk about the seeding and teams, I wondered if I could use my data science knowledge to predict the outcome of these games. I am not talking about a perfect bracket, but one that used team stats to predict games. Could this model beat other people's brackets and maybe win me a bit of money. As I initially searched the internet for NCAA basketball data, I stumbled upon a Kaggle competition that happens each year. This competition contained all the data I needed (and much more) to train some machine learning models. If you want to check out the site of this competition, it is listed here: https://www.kaggle.com/c/mens-march-mania-2022/
 
 # Dataset
 
-The data contains 20 CSV files with team names, matchups, box score stats, and rankings dating back to 2003. I started by looking at the box scores of each team since these statistics would be the basis of my models. Each row had a Winning Team and Losing Team along with their respective stats. I pivoted this dataset longer in order to have a row for each team in a game (1 game has 2 associated rows, one for each team). These rows contained offensive statistics for the team like points and defensive statistics like points allowed. Then, I performed feature creation on the game stats: adding offensive rebounds and defensive rebounds together to calculate total rebound, subtracting points scored and allowed for point differential, and calculating possessions from shot attempts. After creating these columns, I rolled the game data into season data for each team by calculating the averages of each statistic over a season. I also created a few other features including Points per Possession and effective Field Goal Percentage. 
+The data contains 20 CSV files with team names, matchups, box score stats, and rankings dating back to 2003. I started by looking at the box scores of each team since these statistics would be the basis of my models. Each row had a Winning Team and Losing Team along with their respective stats. I pivoted this dataset longer in order to have a row for each team in a game (one game has two associated rows, one for each team). These rows contained offensive statistics for the team like points and defensive statistics like points allowed. Then, I performed feature creation on the game stats: adding offensive rebounds and defensive rebounds together to calculate total rebound, subtracting points scored and allowed for point differential, and calculating possessions from shot attempts. After creating these columns, I rolled the game data into season data for each team by calculating the averages of each statistic over a season. I also created a few other features, including Points per Possession and effective Field Goal Percentage. 
 
-After calculating the season statistics for each team, I joined the dataset with the ranking CSV. This file had rankings for each team, including the AP Poll, NET ranking, and Pomeroy ranking. I also created a sort of heat index, which showed the change in a team's Pom ranking over the last month before the tournament. I joined this table with seasonal and ranking data for each team with the the file of team matchups for the 2003 to 2021 tournaments. 
+After calculating the season statistics for each team, I joined the dataset with the ranking CSV. This file had rankings for each team, including the AP Poll, NET ranking, and Pomeroy ranking. I also created a sort of heat index, which showed the change in a team's Pom ranking over the last month before the tournament. I joined this table with seasonal and ranking data for each team with the file of team matchups for the 2003 to 2021 tournaments. 
 
-Each row, now, contained Team 1 and Team 2 and their respective statistics for the year. The results were set up as a binary indicator coinciding with a 1 if Team1 won and a 0 if Team 2 won. This means the probability of Team 1 winning is just p, while the probability of Team 2 winning is 1-p. The dataset is also evenly split between games that Team 1 and Team 2 won.
+Each row, now, contained Team 1 and Team 2 and their respective statistics for the year. The results were set up as a binary indicator coinciding with a 1 if Team 1 won and a 0 if Team 2 won. This means the probability of Team 1 winning is just p, while the probability of Team 2 winning is 1-p. The dataset is also evenly split between games that Team 1 and Team 2 won.
 
-Lastly, I filtered the training data to only include data from the 2008 to 2018 seasons. This ensured that the model had enough data point (around 600) to find patterns, but did not look back too far at seasons in which the landscape of college basketball was vastly different. My validation and test sets were the 2019 and 2021 seasons and tournaments (NOTE: There was no tournament in 2020 due to COVID-19)
+Lastly, I filtered the training data to only include data from the 2008 to 2018 seasons. This ensured that the model had enough data points (around 600) to find patterns but did not look back too far at seasons in which the college basketball landscape was vastly different. My validation and test sets were the 2019 and 2021 seasons and tournaments (NOTE: There was no tournament in 2020 due to COVID-19)
 
 # Variable Selection
 
-The dataset contained 112 different variables or metrics for each team. Using all of these variables provided the modeling techniques too much noise. Many of the modeling techniques predicted the training data very well with all of the variables, but performed poorly on the test and validation. Using a combination of variable importance plots, modeling assesment metrics, and knowledge of college basketball, I choose the following variables:
+The dataset contained 112 different variables or metrics for each team. Using all of these variables provided the modeling techniques with too much noise. Many modeling techniques predicted the training data well with all of the variables but performed poorly on the test and validation. Using a combination of variable importance plots, modeling assessment metrics, and knowledge of college basketball, I choose the following variables:
 
-* **Points per Possession (Offensive Efficiency)**- Average number of points a team scores per possession
-* **Opponents Points per Possession (Defensive Efficiency)**- Average number of points allowed per possession
+* **Points Per Possession (Offensive Efficiency)**- Average number of points a team scores per possession
+* **Opponents Points Per Possession (Defensive Efficiency)**- Average number of points allowed per possession
 * **Point Differential**- Margin of victory, number of points scored minus number of points allowed
 * **Pomeroy Ranking**- Ranking of teams by legendary college basketball statistician Ken Pom (lower the ranking, the better)
-* **Opponent Three Point Field Goal Percentage**- Number of three points allowed divided by number of three points attempted
+* **Opponent Three Point Field Goal Percentage**- Number of three points allowed divided by number of three points attempted by opponent
 * **Free Throw Percentage**- Number of free throws made/ number of free throws attempted
-* **Offensive Rebound Difference**- Difference between a team's number of offensive rebound and their opponent's number of offensive rebounds
+* **Offensive Rebound Difference**- Difference between a team's number of offensive rebounds and their opponent's number of offensive rebounds
 * **Opponent Turnovers**- Number of turnovers by a team's opponent
 
 These variables account for a team's defensive, offensive, rebounding, and overall abilities. 
 
 # Models
 
-After data cleaning and variable selection, I created different models, including logistic regression, xgboost, random forest, and neural networks and scored them based on area under the ROC curve (AROC) and misclassification rate. AROC showed the models performance across different cutoffs, which may not seem useful since the cutoff should be .5. However, this metric allowed me to asses the overall performance of the model, not just classification. The three best models were an xgboost model, a  random forest model, and a neural net model. 
+After data cleaning and variable selection, I created different models, including logistic regression, XGBoost, random forest, and neural networks, and scored them based on the area under the ROC curve (AROC) and misclassification rate. AROC showed the model's performance across different cutoffs, which may not seem useful since the cutoff should be .5. However, this metric allowed me to assess model's overall performance, not just classification. The three best models were an XGBoost model, a  random forest model, and a neural net model. 
 
 ## XGBoost
 
 ### Methodology and Analysis
 
-In order to create this model, I had to turn the parameters to the dataset. I used 30-fold cross validation to pick the parameters that resulted in the lowest amount of error and prevented overfitting. However, this model still overfit the training data. The ROC curve and Confusion Matrix for this model on the training data is shown below. The model does extradinarily well with a AROC of .94 and misclassification rate of 88.32%.
+In order to create this model, I had to tune the parameters to the dataset. I used 30-fold cross validation to pick the parameters that resulted in the lowest amount of error and prevented overfitting. However, this model still overfits the training data. The ROC curve and Confusion Matrix for this model on the training data is shown below. The model does extraordinarily well with an AROC of .94 and a classification rate of 88.32%.
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
@@ -80,7 +80,7 @@ coftable(InformationValue::confusionMatrix(factor(test$Result), ML_trainphatsxgb
 
 
 ```
-The model also calculates the importance of each variable in predicting which team wins. The variables are clustered based on importance to the model, with cluster 1 in red and cluster 2 in light blue. The two most important variables were the Pomeroy rankings for the two teams. The plot of Variable Importance is shown below. 
+The model also calculates the importance of each variable in predicting which team wins. The variables are clustered based on importance to the model, with cluster 1 in red and cluster 2 in light blue. The two most important variables were the Pomeroy rankings for the two teams. The plot below shows each variable's importance in the model. 
 
 ```{r}
 library(Ckmeans.1d.dp)
@@ -89,7 +89,7 @@ xgb.ggplot.importance(xgb.importance(feature_names = colnames(train_x), model = 
 
 ### Results
 
-Even though the model performed extremely well on the training set, it does not perform as well on the validation dataset (2019 and 2021 seasons) compared to the training dataset furthering the evidence that the model is overfitted However, the model performs very well on the 2019 NCAA tournament compared to other models I created, predicting about 76% of the games correctly. However, the model performs extremely poorly on the 2021 NCAA tournament, predicting only 63% of games correctly. The table below contains accuracy measures for the XGBoost model for the 2019 and 2021 tournaments. 
+Even though the model performed extremely well on the training set, it does not perform as well on the validation dataset (2019 and 2021 seasons) compared to the training dataset furthering the evidence that the model is overfitted. However, the model performs very well on the 2019 NCAA tournament compared to other models I created, correctly predicting about 76% of the games. However, the model performs poorly on the 2021 NCAA tournament, predicting only 63% of games correctly. The table below contains accuracy measures for the XGBoost model for the 2019 and 2021 tournaments. 
 
 ```{r}
 classesxgb=c(classrate(InformationValue::confusionMatrix(factor(testyNN2019$Result), xgbtesty2019)), classrate(InformationValue::confusionMatrix(factor(testyNN2021$Result), xgbtesty2021)))
@@ -107,7 +107,7 @@ kable(tabsxgb, caption = "XGBoost Measures on Validation Data")%>%
 ## Random Forest Model
 
 ### Methodology and Analysis
-The Random Forest model was tuned similarly to the xgboost model using cross-validation. This model performed worse than the xgboost model on the training set, but more in line with model scores on the validation datasets. The AROC for the random forest .75 and the misclassification rate was 68.82%. The area under the ROC curve and Confusion matrix are shown below. 
+The Random Forest model was tuned similarly to the XGBoost model using cross-validation. This model performed worse than the XGBoost model on the training set but was more aligned with model scores on the validation datasets. The AROC for the random forest was .75, and the misclassification rate was 68.82%. Below are the area under the ROC curve and Confusion matrix.
 
 ```{r}
 source("RandomForest.R", local = knitr::knit_global())
@@ -121,7 +121,7 @@ coftable(InformationValue::confusionMatrix(factor(test$Result), rfphat, threshol
 
 ```
 
-The random forest model also displays the most important variables in determining the winning team. A table of the most important variables to the model based on change in accuracy and impurity are shown below. This table also shows the Pomeroy rankings for both teams are the most influential in determining the winner.
+The random forest model also displays the most important variables in determining the winning team. A table of the most important variables to the model based on change in accuracy and impurity is shown below. This table also indicates the Pomeroy rankings for both teams are the most influential in determining the winner.
 
 ```{r}
 varImpPlot(rf.ames2,
@@ -132,7 +132,7 @@ varImpPlot(rf.ames2,
 
 ### Results 
 
-The random forest model had similar performance on the 2019 NCAA tournament compared to the training. The model predicted 73% of the games correctly during this tournament with an AROC of .7963. The model performed worse on the 2021 tournament with a classification rate of 63% and an AROC of .714. The table below shows the model performance on the two tournaments is shown in the table below
+The random forest model had a similar performance on the 2019 NCAA tournament compared to the training. The model predicted 73% of the games correctly during this tournament with an AROC of .7963. The model performed worse on the 2021 tournament, with a classification rate of 63% and an AROC of .714. The table below shows the model performance on the two tournaments is shown in the table below.
 
 
 ```{r}
@@ -153,7 +153,7 @@ kable(tabsrf, caption = "Random Forest Measures on Validation Data")%>%
 
 ### Methodology and Analysis
 
-In order to model the training set with a neural network, I standardized the data using z-score transformations. This process allows the predictor variables to be on the same scale so that continuous variables with large values or standard deviations do not dominate the model. The neural network also needed to be optimized for the number of hidden layers and decay (a regularization parameter to prevent overfitting).The final neural net model had an AROC of .845 and a classification rate of 74.86% on the training dataset.
+To model the training set with a neural network, I standardized the data using z-score transformations. This process allows the predictor variables to be on the same scale so that continuous variables with large values or standard deviations do not dominate the model. The neural network also needed to be optimized for the number of hidden layers and decay (a regularization parameter to prevent overfitting). The final neural net model had an AROC of .845 and a classification rate of 74.86% on the training dataset.
 
 ```{r}
 library(ROCR)
@@ -164,7 +164,7 @@ coftable(InformationValue::confusionMatrix(factor(NN$Result), bestneural$fitted.
 
 ### Results
 
-The Neural Network model performed relatively averagely on 2019 tournament, but better than either of the two other models on the 2021 tournament. The model predicted only 70% of the games correctly in 2019 with a AROC of .7848. However, the model predicted 68% of the 2021 tournament games correctly with an AROC of .7241. A table with the accuracy measures for the Neural Network model are shown below. 
+The Neural Network model performed relatively averagely on the 2019 tournament but better than the two other models on the 2021 tournament. The model predicted only 70% of the games correctly in 2019 with an AROC of .7848. However, the model predicted 68% of the 2021 tournament games correctly with an AROC of .7241. A table with the accuracy measures for the Neural Network model is shown below. 
 
 ```{r}
 classesnn=c(classrate(InformationValue::confusionMatrix(factor(testyNN2019$Result), logtesty2019)), classrate(InformationValue::confusionMatrix(factor(testyNN2021$Result), logtesty2021)))
@@ -180,11 +180,11 @@ kable(tabsnn, caption = "Neural Network Measures on Validation Data")%>%
 
 ## Ensemble Models
 
-Looking at all of the machine learning models, each had strengths and weaknesses in predicting certain aspect of game scenarios. Combining the insights from these models may lead to even better predictions. 
+Looking at all of the machine learning models, each had strengths and weaknesses in predicting certain aspects of game scenarios. Combining the insights from these models may lead to even better predictions. 
 
 ### Random Forest and Neural Network
 
-Below are the Confusion Matrices for Neural Network and Random Forest models on the 2019 NCAA tournament. Both models performed relatively well on this tournament with the NN classifying 70.15% of games correctly and the Random Forest classifying 73.13% of games correctly. However, the models seem to perform better in different classifying sections. The Neural Network was extremely good at predicting whether Team 1 Won, correctly classifying 85% of predicted Team 1 Wins. However, the model was worse at predicting Team 2 wins, only correctly classifying 64% of predicted Team 2 wins. Then Random Forest model was more balanced correctly classifying 74% of predicted Team 2 wins and 72% of predicted Team 1 wins. Combining the predictions from these two models may actually improve performance on new data.
+Below are the Confusion Matrices for Neural Network and Random Forest models on the 2019 NCAA tournament. Both models performed relatively well on this tournament, with the NN classifying 70.15% of games correctly and the Random Forest classifying 73.13% of games correctly. However, the models seem to perform better in different classifying sections. The Neural Network was extremely good at predicting whether Team 1 Won, correctly classifying 85% of predicted Team 1 Wins. However, the model was worse at predicting Team 2 wins, only correctly classifying 64% of predicted Team 2 wins. The Random Forest model was more balanced, correctly classifying 74% of predicted Team 2 wins and 72% of predicted Team 1 wins. Combining the predictions from these two models may actually improve performance on new data.
 
 ```{r}
 
@@ -194,7 +194,7 @@ coftable(InformationValue::confusionMatrix(factor(testyrfdata2019$Result), testy
 
 ```
 
-When combining the predictions from both Models, model performance on the 2019 tournament is consistent, but is actually better on the 2021 tournament. The RF/NN Ensemble confusion matrices for the 2019 and 2021 tournaments are shown below. This model actually predicts almost 70% of games correctly in the 2021 tournament compared to 68%	 by the Neural Network model alone and 64% by the Random Forest model alone. 
+When combining the predictions from both Models, model performance on the 2019 tournament is consistent but is actually better on the 2021 tournament. The RF/NN Ensemble confusion matrices for the 2019 and 2021 tournaments are shown below. This model predicts almost 70% of games correctly in the 2021 tournament compared to 68%	 by the Neural Network model alone and 64% by the Random Forest model alone. 
 
 ```{r}
 
@@ -206,9 +206,9 @@ coftable(InformationValue::confusionMatrix(factor(testyNN2021$Result), .5 * logt
 
 ### Random Forest, Neural Network, and XGBoost
 
-Adding the predictions from the XGBoost model may increase performance even further. The XGBoost overfits the training data and, therefore, does not perform consistently on the validation sets. However, combining these predictions to the NN/RF Ensemble model may make the predictions more generalization, while extracting as much signal from the data as possible.
+Adding the predictions from the XGBoost model may increase performance even further. The XGBoost overfits the training data and, therefore, does not perform consistently on the validation sets. However, combining these predictions to the NN/RF Ensemble model may make the predictions more generalizable while extracting as much signal from the data as possible.
 
-The confusion matrices for the NN/RF/XG Ensemble model for the 2019 and 2021 NCAA tournaments are shown below. This model performs the best on both the 2019 and 2021 datasets, even breaking the into 70% accuracy range for the 2021 tournament. 
+The confusion matrices for the NN/RF/XG Ensemble model for the 2019 and 2021 NCAA tournaments are in the table below. This model performs the best on both the 2019 and 2021 datasets, even breaking into the 70% accuracy range for the 2021 tournament. 
 
 ```{r}
 coftable(InformationValue::confusionMatrix(factor(testyNN2019$Result), (1/3) * logtesty2019 + (1/3)*testyrf2019 + (1/3)*xgbtesty2019), "Random Forest, Neural Net, and XGBoost Ensemble Confusion Matrix on 2019 NCAA Tournament")
@@ -223,9 +223,9 @@ coftable(InformationValue::confusionMatrix(factor(testyNN2021$Result), (1/3) * l
 source("Chalk.R", local = knitr::knit_global())
 ```
 
-The classification rates of the models are hard to interpret alone. For example, is predicting 76% of the 2021 tournament games impressive or just better than the other models? In order to assess model performance, I decided to use the selection committees ranking as a baseline. Comparing the models accuracy to the accuracy of just picking the higher seeded team (known as a "Chalk Bracket").
+The classification rates of the models are hard to interpret alone. For example, is predicting 76% of the 2021 tournament games impressive or just better than the other models? In order to assess model performance, I decided to use the selection committee's ranking as a baseline, comparing the model's accuracy to the accuracy of just picking the higher seeded team (known as a "Chalk Bracket").
 
-The classification rates for the "Chalk" method and NN/RF/XG Ensemble method are shown in the table below. Just picking the higher seed was actually pretty effective for the 2019 tournament, resulting in an accuracy of 72%. However, the ensemble model still performed 6% better than the "Chalk" method in 2019. The "Chalk" method was much less accurate in picking the 2021 tournament games, coinciding with only a 61% classification rate. The ensemble model far outperformed the "Chalk" method during the 2021 tournament with a 17% higher accuracy score.
+The classification rates for the "Chalk" method and NN/RF/XG Ensemble method are in the table below. Just picking the higher seed was actually pretty effective for the 2019 tournament, resulting in an accuracy of 72%. However, the ensemble model still performed 6% better than the "Chalk" method in 2019. The "Chalk" method was much less accurate in picking the 2021 tournament games, coinciding with only a 61% classification rate. The ensemble model far outperformed the "Chalk" method during the 2021 tournament with a 17% higher accuracy score.
 
 
 ```{r}
@@ -242,4 +242,4 @@ kable(assessment, caption = "NN/RF/XG Assessment")%>%
 
 ```
 
-In two very different tournament scenarios, the ensemble model performed better than picking higher seeds with an accuracy above 70%. Combining all three predictions increased the generalizability of the model while perserving accurate predictions. 
+The ensemble model performed better than picking higher seeds in two very different tournament scenarios with an accuracy above 70%. Combining all three predictions increased the generalizability of the model while preserving accurate predictions. 
