@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 2022 Rankings | March Madness Machine Learning 2022</title>
+  <meta name="description" content="Chapter 6 2022 Rankings | March Madness Machine Learning 2022" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 2022 Rankings | March Madness Machine Learning 2022" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 2022 Rankings | March Madness Machine Learning 2022" />
+  
+  
+  
+
+<meta name="author" content="Connor Folk" />
+
+
+<meta name="date" content="2022-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assessing-model-performance.html"/>
+
+<script src="libs/header-attrs-2.12/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">March Madness 2022</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="2" data-path="dataset.html"><a href="dataset.html"><i class="fa fa-check"></i><b>2</b> Dataset<span></span></a></li>
+<li class="chapter" data-level="3" data-path="variable-selection.html"><a href="variable-selection.html"><i class="fa fa-check"></i><b>3</b> Variable Selection<span></span></a></li>
+<li class="chapter" data-level="4" data-path="models.html"><a href="models.html"><i class="fa fa-check"></i><b>4</b> Models<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="models.html"><a href="models.html#xgboost"><i class="fa fa-check"></i><b>4.1</b> XGBoost<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="models.html"><a href="models.html#methodology-and-analysis"><i class="fa fa-check"></i><b>4.1.1</b> Methodology and Analysis<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="models.html"><a href="models.html#results"><i class="fa fa-check"></i><b>4.1.2</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="models.html"><a href="models.html#random-forest-model"><i class="fa fa-check"></i><b>4.2</b> Random Forest Model<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="models.html"><a href="models.html#methodology-and-analysis-1"><i class="fa fa-check"></i><b>4.2.1</b> Methodology and Analysis<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="models.html"><a href="models.html#results-1"><i class="fa fa-check"></i><b>4.2.2</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="models.html"><a href="models.html#neural-network"><i class="fa fa-check"></i><b>4.3</b> Neural Network<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="models.html"><a href="models.html#methodology-and-analysis-2"><i class="fa fa-check"></i><b>4.3.1</b> Methodology and Analysis<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="models.html"><a href="models.html#results-2"><i class="fa fa-check"></i><b>4.3.2</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="models.html"><a href="models.html#ensemble-models"><i class="fa fa-check"></i><b>4.4</b> Ensemble Models<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="models.html"><a href="models.html#random-forest-and-neural-network"><i class="fa fa-check"></i><b>4.4.1</b> Random Forest and Neural Network<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="models.html"><a href="models.html#random-forest-neural-network-and-xgboost"><i class="fa fa-check"></i><b>4.4.2</b> Random Forest, Neural Network, and XGBoost<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="assessing-model-performance.html"><a href="assessing-model-performance.html"><i class="fa fa-check"></i><b>5</b> Assessing Model Performance<span></span></a></li>
+<li class="chapter" data-level="6" data-path="rankings.html"><a href="rankings.html"><i class="fa fa-check"></i><b>6</b> 2022 Rankings<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="rankings.html"><a href="rankings.html#data-preparation"><i class="fa fa-check"></i><b>6.1</b> Data Preparation<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">March Madness Machine Learning 2022</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rankings" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> 2022 Rankings<a href="rankings.html#rankings" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="data-preparation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Data Preparation<a href="rankings.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When looking at predictions of the model, they seemed to vary depending on the labeling of the teams as Team 1 and Team 2. In order to decrease this variability, I added an additional row per game with the opposite labeling of Team 1 and Team 2. The model can know view the same game result with Team 1 winning and Team 2 winning, hopefully decreasing the variability in the randomness of labeling the teams. Once this data change was made, the model’s Log Loss for the 2021 tournament decreased to about .59, which would have placed top 50 in that competition.</p>
+<p>Once running the model with the new data for the 2021-2022 season, predictions could be made for the 2022 tournament. The ranking of the teams based on average probability of winning against any team in the tournament is below. Higher probabilities mean that team is likely to win in more matchups in the tournament.</p>
+<div class="table" style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:375px;  margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-19">Table 6.1: </span>2022 Rankings
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Rank
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Team
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+AVGPrediction
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Gonzaga
+</td>
+<td style="text-align:right;">
+0.7688933
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Arizona
+</td>
+<td style="text-align:right;">
+0.7685462
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+Houston
+</td>
+<td style="text-align:right;">
+0.7241145
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Iowa
+</td>
+<td style="text-align:right;">
+0.7150696
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:left;">
+Baylor
+</td>
+<td style="text-align:right;">
+0.6945261
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+Kentucky
+</td>
+<td style="text-align:right;">
+0.6921316
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+UCLA
+</td>
+<td style="text-align:right;">
+0.6896294
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Kansas
+</td>
+<td style="text-align:right;">
+0.6596790
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:left;">
+Duke
+</td>
+<td style="text-align:right;">
+0.6566141
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+Texas Tech
+</td>
+<td style="text-align:right;">
+0.6532578
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+Auburn
+</td>
+<td style="text-align:right;">
+0.6514166
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+Villanova
+</td>
+<td style="text-align:right;">
+0.6399042
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:left;">
+Tennessee
+</td>
+<td style="text-align:right;">
+0.6322477
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+Texas
+</td>
+<td style="text-align:right;">
+0.6268857
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:left;">
+Murray St
+</td>
+<td style="text-align:right;">
+0.6261029
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+LSU
+</td>
+<td style="text-align:right;">
+0.6167269
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:left;">
+Purdue
+</td>
+<td style="text-align:right;">
+0.6156445
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+Connecticut
+</td>
+<td style="text-align:right;">
+0.6053684
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+Arkansas
+</td>
+<td style="text-align:right;">
+0.5964973
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+St Mary’s CA
+</td>
+<td style="text-align:right;">
+0.5952203
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+Illinois
+</td>
+<td style="text-align:right;">
+0.5890800
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+San Francisco
+</td>
+<td style="text-align:right;">
+0.5853186
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+Loyola-Chicago
+</td>
+<td style="text-align:right;">
+0.5681378
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+UAB
+</td>
+<td style="text-align:right;">
+0.5487578
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:left;">
+Memphis
+</td>
+<td style="text-align:right;">
+0.5398739
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:left;">
+San Diego St
+</td>
+<td style="text-align:right;">
+0.5382957
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:left;">
+North Carolina
+</td>
+<td style="text-align:right;">
+0.5347638
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+Boise St
+</td>
+<td style="text-align:right;">
+0.5295159
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:left;">
+Virginia Tech
+</td>
+<td style="text-align:right;">
+0.5177411
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:left;">
+USC
+</td>
+<td style="text-align:right;">
+0.5105664
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:left;">
+Iowa St
+</td>
+<td style="text-align:right;">
+0.5013822
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:left;">
+Vermont
+</td>
+<td style="text-align:right;">
+0.4999403
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:left;">
+Alabama
+</td>
+<td style="text-align:right;">
+0.4975716
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+Ohio St
+</td>
+<td style="text-align:right;">
+0.4969482
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:left;">
+Colorado St
+</td>
+<td style="text-align:right;">
+0.4964146
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:left;">
+Seton Hall
+</td>
+<td style="text-align:right;">
+0.4948429
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:left;">
+Wisconsin
+</td>
+<td style="text-align:right;">
+0.4867273
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:left;">
+Marquette
+</td>
+<td style="text-align:right;">
+0.4831867
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:left;">
+Michigan
+</td>
+<td style="text-align:right;">
+0.4830376
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:left;">
+Michigan St
+</td>
+<td style="text-align:right;">
+0.4755332
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:left;">
+TCU
+</td>
+<td style="text-align:right;">
+0.4648768
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:left;">
+Providence
+</td>
+<td style="text-align:right;">
+0.4629303
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:left;">
+Davidson
+</td>
+<td style="text-align:right;">
+0.4590377
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:left;">
+Notre Dame
+</td>
+<td style="text-align:right;">
+0.4573141
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:left;">
+Chattanooga
+</td>
+<td style="text-align:right;">
+0.4444356
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:left;">
+S Dakota St
+</td>
+<td style="text-align:right;">
+0.4393861
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:left;">
+Wyoming
+</td>
+<td style="text-align:right;">
+0.4391584
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:left;">
+Miami FL
+</td>
+<td style="text-align:right;">
+0.4157946
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+Indiana
+</td>
+<td style="text-align:right;">
+0.4087451
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+Rutgers
+</td>
+<td style="text-align:right;">
+0.4048843
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:left;">
+New Mexico St
+</td>
+<td style="text-align:right;">
+0.3914793
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:left;">
+Creighton
+</td>
+<td style="text-align:right;">
+0.3880162
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:left;">
+Richmond
+</td>
+<td style="text-align:right;">
+0.3721586
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:left;">
+Georgia St
+</td>
+<td style="text-align:right;">
+0.3687587
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:left;">
+St Peter’s
+</td>
+<td style="text-align:right;">
+0.3583957
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:left;">
+Yale
+</td>
+<td style="text-align:right;">
+0.3570951
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:left;">
+CS Fullerton
+</td>
+<td style="text-align:right;">
+0.3468519
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:left;">
+Longwood
+</td>
+<td style="text-align:right;">
+0.3468082
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:left;">
+Montana St
+</td>
+<td style="text-align:right;">
+0.3295265
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+Delaware
+</td>
+<td style="text-align:right;">
+0.3234417
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:left;">
+Jacksonville St
+</td>
+<td style="text-align:right;">
+0.3205380
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:left;">
+Colgate
+</td>
+<td style="text-align:right;">
+0.3154666
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:left;">
+Norfolk St
+</td>
+<td style="text-align:right;">
+0.3126803
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:left;">
+Wright St
+</td>
+<td style="text-align:right;">
+0.3063850
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:left;">
+TX Southern
+</td>
+<td style="text-align:right;">
+0.2941161
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:left;">
+Bryant
+</td>
+<td style="text-align:right;">
+0.2921967
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:left;">
+Akron
+</td>
+<td style="text-align:right;">
+0.2888322
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:left;">
+TAM C. Christi
+</td>
+<td style="text-align:right;">
+0.2845785
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assessing-model-performance.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ConnorFolk/MarchMadness2022/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/ConnorFolk/MarchMadness2022/blob/master/index.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

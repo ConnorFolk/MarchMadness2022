@@ -29,3 +29,8 @@ tab:unnamed-chunk-15
 tab:unnamed-chunk-17
 random-forest-neural-network-and-xgboost
 assessing-model-performance
+tab:unnamed-chunk-19
+rankings
+data-preparation
+ncaa-tournament
+model-rankings
