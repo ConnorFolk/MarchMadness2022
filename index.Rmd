@@ -249,7 +249,7 @@ The ensemble model performed better than picking higher seeds in two very differ
 
 ## Data Preparation
 
-When looking at predictions of the model, they seemed to vary depending on the labeling of the teams as Team 1 and Team 2. In order to decrease this variability, I added an additional row per game with the opposite labeling of Team 1 and Team 2. The model can know view the same game result with Team 1 winning and Team 2 winning, hopefully decreasing the variability in the randomness of labeling the teams. Once this data change was made, the model's Log Loss for the 2021 tournament decreased to about .59, which would have placed top 50 in that competition. 
+When looking at predictions of the model, they seemed to vary depending on the labeling of the teams as Team 1 and Team 2. In order to decrease this variability, I added an additional row per game with the opposite labeling of Team 1 and Team 2. The model can now view the same game result with Team 1 winning and Team 2 winning, hopefully decreasing the volatility due to randomness of labeling the teams. Once this data change was made, the model's Log Loss for the 2021 tournament decreased to about .59, which would have placed top 50 in that competition. 
 
 ```{r, include=FALSE}
 source("datacodetwopergame.R", local = knitr::knit_global())

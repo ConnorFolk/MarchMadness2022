@@ -96,7 +96,7 @@ teambrack=function(team1, team2){
 
 #teambrack("Arizona", "Purdue")
 
-#write.csv(Kagglescores, "Kagglescores.csv")
+#write.csv(Kagglescores, "Kagglescores.csv", row.names=F)
 
 bracketmaker%>%
   mutate(Pred2=1-Pred)%>%
